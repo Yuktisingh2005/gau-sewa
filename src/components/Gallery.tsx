@@ -15,7 +15,7 @@ const galleryItems = [
   { id: 9,   image: "/images/9.jpeg" },
   { id: 10,  image: "/images/10.jpeg" },
   { id: 11, image: "/images/11.jpeg" },
-  { id: 12,       tag: "Recovery",  image: "/images/12.jpeg" },
+  { id: 12,  image: "/images/12.jpeg" },
 ];
 
 function MarqueeStrip({ items, direction = 1, speed = 30 }: { items: typeof galleryItems; direction?: number; speed?: number }) {
