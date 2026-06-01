@@ -9,7 +9,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const WHATSAPP_NUMBER = "9810292527"; // Replace with actual number
+  const WHATSAPP_NUMBER = ""; // Replace with actual number
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ export default function Contact() {
     const body = encodeURIComponent(
       `Name: ${formData.name}\nPhone: ${formData.phone}\nMessage: ${formData.message}`
     );
-    window.open(`mailto:trivenigausewatrust@gmail.com?subject=${subject}&body=${body}`, "_blank");
+    window.open(`mailto:e?subject=${subject}&body=${body}`, "_blank");
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
   };
