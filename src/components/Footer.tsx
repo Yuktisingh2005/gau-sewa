@@ -32,9 +32,9 @@ export default function Footer() {
           <div className="lg:col-span-2">
             {/* Logo area */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-full border-2 border-amber-600/50 bg-amber-900/20 flex items-center justify-center">
-                <span className="text-amber-400 text-xs font-bold text-center leading-tight">LOGO</span>
-              </div>
+              <div className="w-16 h-16 rounded-full border-2 border-amber-600/50 bg-amber-900/20 flex items-center justify-center overflow-hidden">
+  <img src="/images/logo.jpeg" alt="Triveni Gau Sewa Trust" className="w-full h-full object-cover" />
+</div>
               <div>
                 <div className="text-amber-200 font-bold text-xl"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}>
@@ -48,7 +48,7 @@ export default function Footer() {
             </div>
             <p className="text-amber-200/40 text-sm leading-relaxed mb-6 max-w-sm"
               style={{ fontFamily: "'Lora', serif" }}>
-              A sacred trust dedicated to the rescue, healing, and lifelong care of cows. 
+              A sacred trust dedicated to the rescue, healing, and lifelong care of cows and other animals. 
               Guided by the principle that <em>Gau Seva is God Seva</em>, we serve with devotion.
             </p>
             <blockquote className="italic text-amber-400/50 text-sm border-l-2 border-amber-700/50 pl-4"
@@ -88,7 +88,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-amber-200/50" style={{ fontFamily: "'Lora', serif" }}>
               <li className="flex items-start gap-2">
                 <span className="text-base flex-shrink-0">📍</span>
-                <span>Your Address<br />City, State, India</span>
+                <span>49, ANAND VIHAR, PITAM PURA, DELHI- 110034<br />City, State, India</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-base">📞</span>

@@ -2,15 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-const floatingParticles = Array.from({ length: 18 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: Math.random() * 6 + 2,
-  duration: Math.random() * 8 + 6,
-  delay: Math.random() * 4,
-}));
-
 function useCountUp(target: number, duration: number = 2000, start: boolean = false) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -60,10 +51,8 @@ export default function Hero() {
           className="w-full h-full object-cover opacity-[0.60]"
           style={{ filter: "sepia(80%) hue-rotate(10deg) saturate(120%)" }}
         >
-          {/* Replace src with your actual cow video path, e.g. /videos/cows.mp4 */}
           <source src="/images/cow.mp4" type="video/mp4" />
         </video>
-        {/* Gradient overlay to blend video with background */}
         <div
           className="absolute inset-0"
           style={{
@@ -79,46 +68,52 @@ export default function Hero() {
         backgroundSize: "200px 200px",
       }} />
 
-      {/* Floating petals */}
-      {floatingParticles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute rounded-full opacity-30 z-0"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-            background: p.id % 3 === 0 ? "#f59e0b" : p.id % 3 === 1 ? "#d97706" : "#92400e",
-          }}
-          animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
       {/* Glowing orb */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 z-0"
         style={{ background: "radial-gradient(circle, #f59e0b 0%, transparent 70%)" }} />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Top tagline — Gau Sewa = God Sewa */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex items-center justify-center gap-4 mb-8"
+      {/* Logo — anchored to hero, not fixed to viewport */}
+      <div
+        style={{
+          position: "absolute",
+          top: "12px",
+          left: "24px",
+          zIndex: 40,
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            width: "160px",
+            height: "160px",
+            borderRadius: "50%",
+            border: "2px solid rgba(245,158,11,0.6)",
+            background: "rgba(120,53,15,0.2)",
+            overflow: "hidden",
+            boxShadow: "0 4px 24px rgba(120,53,15,0.4)",
+          }}
         >
-        
-        </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+  src="/images/logo.png"
+  alt="Triveni Gau Sewa Trust"
+  style={{
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    objectPosition: "center",
+    transform: "scale(1.08 ) translateX(-1px) translateY(-2px)",
+    display: "block",
+  }}
+/>
+        </div>
+      </div>
+
+      {/*
+        pt-24 gives enough room below the 80px navbar (h-20) without pushing
+        content too far down. pb-16 ensures stats don't bleed into About.
+      */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24 pb-16">
 
         {/* Main title */}
         <motion.h1
@@ -151,7 +146,7 @@ export default function Hero() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1, delay: 0.9 }}
-          className="flex items-center justify-center gap-3 my-8"
+          className="flex items-center justify-center gap-3 my-6"
         >
           <span className="h-[1px] w-24 bg-gradient-to-r from-transparent to-amber-600" />
           <span className="text-amber-500 text-2xl">✦</span>
@@ -163,10 +158,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.1 }}
-          className="text-base sm:text-lg text-amber-100/50 max-w-2xl mx-auto leading-relaxed mb-10"
+          className="text-base sm:text-lg text-amber-100/50 max-w-2xl mx-auto leading-relaxed mb-8"
           style={{ fontFamily: "'Lora', serif" }}
         >
-          A sacred mission to rescue, heal, and care for our holy cows — providing medical aid,
+          A sacred mission to rescue, heal, and care for our animals — providing medical aid,
           transport, and rehabilitation with devotion and compassion.
         </motion.p>
 
@@ -188,13 +183,13 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Stats strip — animated count-up */}
+        {/* Stats strip — mt-10 keeps it close but not overflowing */}
         <motion.div
           ref={statsRef}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.6 }}
-          className="mt-20 grid grid-cols-3 gap-4 max-w-lg mx-auto"
+          className="mt-10 grid grid-cols-3 gap-4 max-w-lg mx-auto"
         >
           <div className="text-center">
             <div className="text-2xl sm:text-3xl font-bold text-amber-400"
@@ -202,7 +197,7 @@ export default function Hero() {
               {statsVisible ? `${cowCount}+` : "0+"}
             </div>
             <div className="text-xs text-amber-200/50 tracking-widest uppercase mt-1"
-              style={{ fontFamily: "'Lora', serif" }}>Cows Rescued</div>
+              style={{ fontFamily: "'Lora', serif" }}>Animals Rescued</div>
           </div>
           <div className="text-center">
             <motion.div

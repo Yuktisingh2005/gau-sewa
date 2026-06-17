@@ -9,7 +9,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const WHATSAPP_NUMBER = ""; // Replace with actual number
+  const WHATSAPP_NUMBER = "+91 9810292527"; // Replace with actual number
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,7 +100,7 @@ export default function Contact() {
             {/* Contact details */}
             <div className="space-y-4">
               {[
-                { icon: "📍", label: "Address", value: "Add your address here, India" },
+                { icon: "📍", label: "Address", value: "49, ANAND VIHAR, PITAM PURA, DELHI- 110034" },
                 { icon: "📞", label: "Phone", value: "+91 9810292527" },
                 { icon: "✉️", label: "Email", value: "trivenigausewatrust2026@gmail.com" },
               ].map((c) => (

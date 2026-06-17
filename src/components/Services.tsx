@@ -6,14 +6,16 @@ const services = [
   {
     id: 1,
     icon: "🚑",
+    image: "/images/service1.jpeg",
     title: "Emergency Rescue & Transport",
     description:
-      "We operate a dedicated fleet of ambulances and transport vehicles to rescue injured and sick cows from roads, fields, and urban areas, bringing them to safety and medical care.",
-    features: ["24/7 emergency response", "Rapid rescue teams", "Safe animal transport"],
+      "We help rescue injured and sick animals and arrange safe transportation to hospitals and treatment centers, ensuring they receive timely medical care.",
+    features: ["Emergency assistance", "Transport to hospitals", "Animal welfare support"],
   },
   {
     id: 2,
     icon: "🏥",
+    image: "/images/service2.jpeg",
     title: "Veterinary Medical Care",
     description:
       "Our onsite veterinary team provides comprehensive medical treatment including surgery, wound care, medication, and long-term recovery support for all rescued cattle.",
@@ -22,6 +24,7 @@ const services = [
   {
     id: 3,
     icon: "⚙️",
+    image: "/images/service3.jpeg",
     title: "Healing Machine Support",
     description:
       "We utilise specialised rehabilitation frames and support machines that hold injured or paralysed cows in correct posture, enabling faster healing and muscle recovery.",
@@ -30,6 +33,7 @@ const services = [
   {
     id: 4,
     icon: "🌾",
+    image: "/images/service4.jpeg",
     title: "Feed & Nutrition Programme",
     description:
       "Rescued cows receive nutritious meals tailored to their health condition, with green fodder, mineral supplements, and medicinal herbs sourced locally.",
@@ -38,6 +42,7 @@ const services = [
   {
     id: 5,
     icon: "🏡",
+    image: "/images/service5.jpeg",
     title: "Gaushala & Shelter",
     description:
       "Our Gaushala provides a safe, loving home for cows that cannot return to the wild — a sacred space where they live with dignity, comfort, and care for life.",
@@ -46,10 +51,11 @@ const services = [
   {
     id: 6,
     icon: "🤝",
-    title: "Community & Awareness",
+    image: "/images/service6.jpeg",
+    title: "Free Animal Care Services",
     description:
-      "We run programmes to educate communities about the importance of cow welfare, mobilising volunteers and spreading the sacred message of Gau Seva.",
-    features: ["Awareness drives", "Volunteer training", "Community camps"],
+      "We provide free support and assistance for injured, sick, and abandoned animals, ensuring they receive the care and attention they need.",
+    features: ["Free assistance", "Animal care support", "Compassionate service"],
   },
 ];
 
@@ -70,17 +76,13 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         style={{ background: "radial-gradient(circle at 50% 0%, rgba(245,158,11,0.08) 0%, transparent 70%)" }} />
 
       {/* Image container */}
-      <div className="relative w-full h-48 bg-amber-900/20 border-b border-amber-800/20 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/30 to-transparent" />
-        {/* Placeholder for image */}
-        <div className="relative z-10 flex flex-col items-center gap-2 opacity-60 group-hover:opacity-80 transition-opacity">
-          <span className="text-5xl">{service.icon}</span>
-          <span className="text-amber-400/40 text-xs tracking-widest uppercase"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-            Add Image
-          </span>
-        </div>
-        {/* Corner decoration */}
+      <div className="relative w-full h-48 border-b border-amber-800/20 overflow-hidden">
+        <img
+          src={service.image}
+          alt={service.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/30 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
         <div className="absolute top-3 right-3 w-6 h-6 border-t border-r border-amber-600/40" />
         <div className="absolute bottom-3 left-3 w-6 h-6 border-b border-l border-amber-600/40" />
       </div>
@@ -158,7 +160,7 @@ export default function Services() {
           </div>
           <p className="text-amber-200/50 max-w-2xl mx-auto text-base"
             style={{ fontFamily: "'Lora', serif" }}>
-            From emergency rescue to lifelong shelter, we offer comprehensive care for injured, ill, and abandoned cows with devotion and expertise.
+            From emergency rescue to lifelong shelter, we offer comprehensive care for injured, ill, and abandoned animals with devotion and expertise.
           </p>
         </motion.div>
 
