@@ -88,7 +88,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-amber-200/50" style={{ fontFamily: "'Lora', serif" }}>
               <li className="flex items-start gap-2">
                 <span className="text-base flex-shrink-0">📍</span>
-                <span>49, ANAND VIHAR, PITAM PURA, DELHI- 110034<br />City, State, India</span>
+                <span>49, ANAND VIHAR, PITAM PURA, DELHI- 110034<br /></span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-base">📞</span>
@@ -96,7 +96,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-base">✉️</span>
-                <span>trivenigausewatrust2026@<br />gmail.com</span>
+                <span>trivenigausewatrust2026@gmail.com</span>
               </li>
             </ul>
 

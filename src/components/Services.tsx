@@ -130,11 +130,7 @@ export default function Services() {
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-700/50 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-700/50 to-transparent" />
 
-      {/* Large background text */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-[200px] font-bold text-amber-900/[0.03] pointer-events-none select-none whitespace-nowrap"
-        style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-        SERVICES
-      </div>
+  
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}

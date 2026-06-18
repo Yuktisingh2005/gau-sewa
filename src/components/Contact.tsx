@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 
 export default function Contact() {
@@ -7,19 +7,101 @@ export default function Contact() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [errors, setErrors] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("");
 
-  const WHATSAPP_NUMBER = "+91 9810292527"; // Replace with actual number
+  const WHATSAPP_NUMBER = "+919810292527";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Auto-hide success after 5 seconds
+  useEffect(() => {
+    if (!submitted) return;
+    const timer = setTimeout(() => setSubmitted(false), 5000);
+    return () => clearTimeout(timer);
+  }, [submitted]);
+
+  const validate = () => {
+    const newErrors = { name: "", email: "", phone: "", message: "" };
+    let valid = true;
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Please fill in your name.";
+      valid = false;
+    } else if (/\d/.test(formData.name)) {
+      newErrors.name = "Name should not contain numbers.";
+      valid = false;
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters.";
+      valid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Please fill in your email address.";
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address (e.g. you@example.com).";
+      valid = false;
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Please fill in your phone number.";
+      valid = false;
+    } else if (!/^[+\d][\d\s\-]{6,14}$/.test(formData.phone.trim())) {
+      newErrors.phone = "Please enter a valid phone number (e.g. +91 98765 43210).";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
+    if (serverError) setServerError("");
+  };
+
+  // Real-time email validation on blur
+  const handleEmailBlur = () => {
+    const val = formData.email.trim();
+    if (!val) {
+      setErrors((prev) => ({ ...prev, email: "Please fill in your email address." }));
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      setErrors((prev) => ({ ...prev, email: "Please enter a valid email address (e.g. you@example.com)." }));
+    } else {
+      setErrors((prev) => ({ ...prev, email: "" }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent("Inquiry - Triveni Gau Sewa Trust");
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nPhone: ${formData.phone}\nMessage: ${formData.message}`
-    );
-    window.open(`mailto:e?subject=${subject}&body=${body}`, "_blank");
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    if (!validate()) return;
+
+    setLoading(true);
+    setServerError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        const data = await res.json();
+        setServerError(data.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setServerError("Unable to send message. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const openWhatsApp = () => {
@@ -50,7 +132,6 @@ export default function Contact() {
           transition={{ duration: 0.9 }}
           className="text-center mb-20"
         >
-          
           <h2 className="text-4xl sm:text-6xl font-bold text-amber-50 mb-6"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             Get In Touch
@@ -117,84 +198,186 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right: Email form */}
+          {/* Right: Email form card */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative p-8 border border-amber-800/30 bg-amber-900/[0.08] rounded-sm"
+            className="relative p-8 border border-amber-800/30 bg-amber-900/[0.08] rounded-sm overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-500 to-amber-800 rounded-l-sm" />
 
-            <h3 className="text-amber-200 text-2xl font-bold mb-2 pl-4"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-              Send a Message
-            </h3>
-            <p className="text-amber-200/40 text-sm mb-8 pl-4"
-              style={{ fontFamily: "'Lora', serif" }}>
-              Have a question or want to volunteer? We'd love to hear from you.
-            </p>
-
             {submitted ? (
+              /* ── Success State — no header, just the thank-you ── */
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center py-12 text-center"
+                exit={{ opacity: 0, scale: 0.92 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col items-center justify-center py-10 text-center"
               >
-                <div className="text-5xl mb-4">🙏</div>
-                <div className="text-amber-300 text-xl font-bold mb-2"
-                  style={{ fontFamily: "'Cormorant Garamond', serif" }}>Dhanyavaad!</div>
-                <div className="text-amber-200/60 text-sm"
-                  style={{ fontFamily: "'Lora', serif" }}>
-                  Your email has been prepared. May Gau Mata bless you.
-                </div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
+                  className="w-20 h-20 rounded-full border-2 border-amber-500/60 bg-amber-900/30 flex items-center justify-center mb-6"
+                >
+                  <span className="text-4xl">🙏</span>
+                </motion.div>
+
+                <motion.h4
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-amber-300 text-3xl font-bold mb-3"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                >
+                  Dhanyavaad!
+                </motion.h4>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45 }}
+                  className="text-amber-200/70 text-base mb-2"
+                  style={{ fontFamily: "'Lora', serif" }}
+                >
+                  We have received your message.
+                </motion.p>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="text-amber-200/50 text-sm leading-relaxed max-w-xs"
+                  style={{ fontFamily: "'Lora', serif" }}
+                >
+                  Our team will get back to you shortly. May Gau Mata bless you and your family. 🐄
+                </motion.p>
+
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.75, duration: 0.5 }}
+                  className="flex items-center gap-3 mt-8"
+                >
+                  <span className="h-[1px] w-12 bg-gradient-to-r from-transparent to-amber-600" />
+                  <span className="text-amber-500 text-sm">✦</span>
+                  <span className="h-[1px] w-12 bg-gradient-to-l from-transparent to-amber-600" />
+                </motion.div>
+
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.9 }}
+                  className="text-amber-500/50 text-xs mt-4 tracking-widest uppercase"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                >
+                  Gau Sewa · God Sewa
+                </motion.p>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {[
-                  { key: "name", label: "Your Name", type: "text", placeholder: "Shri Ram Kumar" },
-                  { key: "email", label: "Email Address", type: "email", placeholder: "you@example.com" },
-                  { key: "phone", label: "Phone Number", type: "tel", placeholder: "+91 XXXXX XXXXX" },
-                ].map((field) => (
-                  <div key={field.key}>
+              <>
+                {/* Header — only shown when form is visible */}
+                <h3 className="text-amber-200 text-2xl font-bold mb-2 pl-4"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                  Send a Message
+                </h3>
+                <p className="text-amber-200/40 text-sm mb-8 pl-4"
+                  style={{ fontFamily: "'Lora', serif" }}>
+                  Have a question or want to volunteer? We'd love to hear from you.
+                </p>
+
+                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  {[
+                    { key: "name", label: "Your Name", type: "text", placeholder: "Shri Ram Kumar" },
+                    { key: "email", label: "Email Address", type: "email", placeholder: "you@example.com" },
+                    { key: "phone", label: "Phone Number", type: "tel", placeholder: "+91 XXXXX XXXXX" },
+                  ].map((field) => (
+                    <div key={field.key}>
+                      <label className="block text-amber-400/70 text-xs tracking-widest uppercase mb-2"
+                        style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                        {field.label}
+                      </label>
+                      <input
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        value={formData[field.key as keyof typeof formData]}
+                        onChange={(e) => handleChange(field.key, e.target.value)}
+                        onBlur={field.key === "email" ? handleEmailBlur : undefined}
+                        className={`w-full bg-amber-900/20 border ${
+                          errors[field.key as keyof typeof errors]
+                            ? "border-red-500/70 focus:border-red-400"
+                            : "border-amber-800/40 focus:border-amber-500"
+                        } text-amber-100 placeholder-amber-200/20 px-4 py-3 text-sm outline-none transition-colors duration-300 rounded-sm`}
+                        style={{ fontFamily: "'Lora', serif" }}
+                      />
+                      {errors[field.key as keyof typeof errors] && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-1.5 text-red-400/90 text-xs flex items-center gap-1"
+                          style={{ fontFamily: "'Lora', serif" }}
+                        >
+                          <span>⚠</span> {errors[field.key as keyof typeof errors]}
+                        </motion.p>
+                      )}
+                    </div>
+                  ))}
+
+                  <div>
                     <label className="block text-amber-400/70 text-xs tracking-widest uppercase mb-2"
                       style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                      {field.label}
+                      Message
                     </label>
-                    <input
-                      type={field.type}
-                      placeholder={field.placeholder}
-                      value={formData[field.key as keyof typeof formData]}
-                      onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
-                      className="w-full bg-amber-900/20 border border-amber-800/40 focus:border-amber-500 text-amber-100 placeholder-amber-200/20 px-4 py-3 text-sm outline-none transition-colors duration-300 rounded-sm"
+                    <textarea
+                      rows={4}
+                      placeholder="How can we help, or how would you like to contribute?"
+                      value={formData.message}
+                      onChange={(e) => handleChange("message", e.target.value)}
+                      className="w-full bg-amber-900/20 border border-amber-800/40 focus:border-amber-500 text-amber-100 placeholder-amber-200/20 px-4 py-3 text-sm outline-none transition-colors duration-300 resize-none rounded-sm"
                       style={{ fontFamily: "'Lora', serif" }}
                     />
                   </div>
-                ))}
-                <div>
-                  <label className="block text-amber-400/70 text-xs tracking-widest uppercase mb-2"
-                    style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                    Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    placeholder="How can we help, or how would you like to contribute?"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-amber-900/20 border border-amber-800/40 focus:border-amber-500 text-amber-100 placeholder-amber-200/20 px-4 py-3 text-sm outline-none transition-colors duration-300 resize-none rounded-sm"
-                    style={{ fontFamily: "'Lora', serif" }}
-                  />
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="w-full py-4 bg-amber-600 hover:bg-amber-500 text-[#1a0f00] font-bold text-sm tracking-widest uppercase transition-all duration-300 rounded-sm"
-                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                >
-                  ✉️ Send Message
-                </motion.button>
-              </form>
+
+                  {/* Server error */}
+                  {serverError && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-red-400/90 text-xs flex items-center gap-1"
+                      style={{ fontFamily: "'Lora', serif" }}
+                    >
+                      <span>⚠</span> {serverError}
+                    </motion.p>
+                  )}
+
+                  <motion.button
+                    whileHover={{ scale: loading ? 1 : 1.02 }}
+                    whileTap={{ scale: loading ? 1 : 0.98 }}
+                    type="submit"
+                    disabled={loading}
+                    className={`w-full py-4 font-bold text-sm tracking-widest uppercase transition-all duration-300 rounded-sm flex items-center justify-center gap-2 ${
+                      loading
+                        ? "bg-amber-700/60 text-[#1a0f00]/60 cursor-not-allowed"
+                        : "bg-amber-600 hover:bg-amber-500 text-[#1a0f00]"
+                    }`}
+                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                  >
+                    {loading ? (
+                      <>
+                        <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                        </svg>
+                        Sending…
+                      </>
+                    ) : (
+                      <>✉️ Send Message</>
+                    )}
+                  </motion.button>
+                </form>
+              </>
             )}
           </motion.div>
         </div>
