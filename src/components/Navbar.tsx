@@ -21,10 +21,16 @@ export default function Navbar() {
   }, []);
 
   const handleNavClick = (href: string) => {
-    setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  setMenuOpen(false);
+  const el = document.querySelector(href);
+  if (!el) return;
+  const rect = el.getBoundingClientRect();
+  const offset = 80;
+  window.scrollTo({ top: window.scrollY + rect.top - offset, behavior: "smooth" });
+
+  const path = href === "#hero" ? "/" : `/${href.slice(1)}`;
+  window.history.pushState(null, "", path);
+};
 
   return (
     <>
@@ -43,7 +49,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-20">
 
             {/* Left: Trust name — only visible after scroll, leaves space for logo always */}
-            <div style={{ minWidth: "180px" }}>
+            <div style={{ minWidth: "230px" }}>
               <AnimatePresence>
                 {scrolled && (
                   <motion.div
@@ -51,8 +57,33 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -16 }}
                     transition={{ duration: 0.35 }}
-                            style={{ paddingLeft: "0px" }}
+                    style={{ paddingLeft: "0px", display: "flex", alignItems: "center", gap: "10px" }}
                   >
+                    <div
+                      style={{
+                        width: "65px",
+                        height: "65px",
+                        borderRadius: "50%",
+                        border: "1.5px solid rgba(245,158,11,0.6)",
+                        background: "rgba(120,53,15,0.2)",
+                        overflow: "hidden",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/images/logo.png"
+                        alt="Triveni Gau Sewa Trust"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          transform: "scale(1.08) translateX(-0.50px) translateY(-0.5px)",
+                          display: "block",
+                        }}
+                      />
+                    </div>
                     <p
                       className="text-amber-300 font-bold tracking-widest uppercase leading-tight"
                       style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem" }}

@@ -1,17 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
 
-const quickLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "About Us", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
-];
-
-const navTo = (href: string) => {
-  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-};
+const MAP_URL = "https://www.google.com/maps?q=28.6927251,77.1265766&z=17&hl=en";
 
 export default function Footer() {
   return (
@@ -30,11 +19,10 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            {/* Logo area */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-full border-2 border-amber-600/50 bg-amber-900/20 flex items-center justify-center overflow-hidden">
-  <img src="/images/logo.jpeg" alt="Triveni Gau Sewa Trust" className="w-full h-full object-cover" />
-</div>
+              <div className="w-30 h-30 rounded-full border-2 border-amber-600/50 bg-amber-900/20 flex items-center justify-center overflow-hidden">
+                <img src="/images/logo.png" alt="Triveni Gau Sewa Trust" className="w-full h-full object-cover scale-110 -translate-x-0.1" />
+              </div>
               <div>
                 <div className="text-amber-200 font-bold text-xl"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}>
@@ -48,7 +36,7 @@ export default function Footer() {
             </div>
             <p className="text-amber-200/40 text-sm leading-relaxed mb-6 max-w-sm"
               style={{ fontFamily: "'Lora', serif" }}>
-              A sacred trust dedicated to the rescue, healing, and lifelong care of cows and other animals. 
+              A sacred trust dedicated to the rescue, healing, and lifelong care of cows and other animals.
               Guided by the principle that <em>Gau Seva is God Seva</em>, we serve with devotion.
             </p>
             <blockquote className="italic text-amber-400/50 text-sm border-l-2 border-amber-700/50 pl-4"
@@ -57,26 +45,35 @@ export default function Footer() {
             </blockquote>
           </div>
 
-          {/* Quick links */}
+          {/* Google Map */}
           <div>
             <h4 className="text-amber-400 text-xs tracking-[0.3em] uppercase mb-6 font-bold"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-              Quick Links
+              Find Us
             </h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <button
-                    onClick={() => navTo(link.href)}
-                    className="text-amber-200/50 hover:text-amber-300 text-sm transition-colors duration-200 flex items-center gap-2 group"
-                    style={{ fontFamily: "'Lora', serif" }}
-                  >
-                    <span className="w-4 h-[1px] bg-amber-700/50 group-hover:bg-amber-500 group-hover:w-6 transition-all duration-300" />
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <a
+              href={MAP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group relative overflow-hidden rounded-sm border border-amber-800/40 hover:border-amber-500/60 transition-all duration-300"
+              style={{ height: "160px" }}
+            >
+              <iframe
+                src="https://maps.google.com/maps?q=28.6927251,77.1265766&z=17&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: "sepia(60%) hue-rotate(10deg) saturate(80%) brightness(0.75)", pointerEvents: "none" }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              {/* Overlay — clicking opens Google Maps */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-amber-900/0 group-hover:bg-amber-900/50 transition-all duration-300">
+                <span className="text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">📍</span>
+                <span className="text-amber-300 text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ fontFamily: "'Lora', serif" }}>Open in Maps</span>
+              </div>
+            </a>
+          
           </div>
 
           {/* Contact info */}
@@ -88,7 +85,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-amber-200/50" style={{ fontFamily: "'Lora', serif" }}>
               <li className="flex items-start gap-2">
                 <span className="text-base flex-shrink-0">📍</span>
-                <span>49, ANAND VIHAR, PITAM PURA, DELHI- 110034<br /></span>
+                <span>49, ANAND VIHAR, PITAM PURA, DELHI- 110034</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-base">📞</span>
@@ -99,8 +96,6 @@ export default function Footer() {
                 <span>trivenigausewatrust2026@gmail.com</span>
               </li>
             </ul>
-
-          
           </div>
         </div>
 

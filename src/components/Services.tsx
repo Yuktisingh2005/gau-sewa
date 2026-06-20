@@ -18,7 +18,7 @@ const services = [
     image: "/images/service2.jpeg",
     title: "Veterinary Medical Care",
     description:
-      "Our onsite veterinary team provides comprehensive medical treatment including surgery, wound care, medication, and long-term recovery support for all rescued cattle.",
+      "Our onsite veterinary team provides comprehensive medical treatment including surgery, wound care, medication, and long-term recovery support for all rescued animals.",
     features: ["In-house veterinarians", "Surgical facilities", "Post-op care"],
   },
   {
@@ -27,7 +27,7 @@ const services = [
     image: "/images/service3.jpeg",
     title: "Healing Machine Support",
     description:
-      "We utilise specialised rehabilitation frames and support machines that hold injured or paralysed cows in correct posture, enabling faster healing and muscle recovery.",
+      "We utilise specialised rehabilitation frames and support machines that hold injured or paralysed animals in correct posture, enabling faster healing and muscle recovery.",
     features: ["Bovine slings & frames", "Rehabilitation equipment", "Mobility restoration"],
   },
   {
@@ -36,7 +36,7 @@ const services = [
     image: "/images/service4.jpeg",
     title: "Feed & Nutrition Programme",
     description:
-      "Rescued cows receive nutritious meals tailored to their health condition, with green fodder, mineral supplements, and medicinal herbs sourced locally.",
+      "Rescued animals receive nutritious meals tailored to their health condition, with green fodder, mineral supplements, and medicinal herbs sourced locally.",
     features: ["Daily nutritious feed", "Herbal medicine", "Mineral supplements"],
   },
   {
@@ -45,7 +45,7 @@ const services = [
     image: "/images/service5.jpeg",
     title: "Gaushala & Shelter",
     description:
-      "Our Gaushala provides a safe, loving home for cows that cannot return to the wild — a sacred space where they live with dignity, comfort, and care for life.",
+      "Our Gaushala provides a safe, loving home for animals that cannot return to the wild — a sacred space where they live with dignity, comfort, and care for life.",
     features: ["Permanent shelter", "Clean environment", "Loving caretakers"],
   },
   {
@@ -93,7 +93,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           style={{ fontFamily: "'Cormorant Garamond', serif" }}>
           {service.title}
         </h3>
-        <p className="text-amber-200/50 text-sm leading-relaxed mb-5"
+        <p className="text-amber-200/50 text-sm leading-relaxed mb-5 text-justify"
           style={{ fontFamily: "'Lora', serif" }}>
           {service.description}
         </p>

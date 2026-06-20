@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function useCountUp(target: number, duration: number = 2000, start: boolean = false) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   useEffect(() => {
     if (!start) return;
     let startTime: number | null = null;
@@ -21,6 +21,7 @@ function useCountUp(target: number, duration: number = 2000, start: boolean = fa
 
 export default function Hero() {
   const [statsVisible, setStatsVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
   const cowCount = useCountUp(500, 2200, statsVisible);
 
@@ -31,6 +32,13 @@ export default function Hero() {
     );
     if (statsRef.current) observer.observe(statsRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  // Hide logo when user scrolls down enough that navbar would overlap it
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -72,47 +80,51 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 z-0"
         style={{ background: "radial-gradient(circle, #f59e0b 0%, transparent 70%)" }} />
 
-      {/* Logo — anchored to hero, not fixed to viewport */}
-      <div
-        style={{
-          position: "absolute",
-          top: "12px",
-          left: "24px",
-          zIndex: 40,
-          pointerEvents: "none",
-        }}
-      >
-        <div
-          style={{
-            width: "160px",
-            height: "160px",
-            borderRadius: "50%",
-            border: "2px solid rgba(245,158,11,0.6)",
-            background: "rgba(120,53,15,0.2)",
-            overflow: "hidden",
-            boxShadow: "0 4px 24px rgba(120,53,15,0.4)",
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-  src="/images/logo.png"
-  alt="Triveni Gau Sewa Trust"
-  style={{
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    objectPosition: "center",
-    transform: "scale(1.08 ) translateX(-1px) translateY(-2px)",
-    display: "block",
-  }}
-/>
-        </div>
-      </div>
+      {/* Logo — fades out when navbar scrolls down over it */}
+      <AnimatePresence>
+        {!scrolled && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              position: "absolute",
+              top: "16px",
+              left: "25px",
+              zIndex: 40,
+              pointerEvents: "none",
+            }}
+          >
+            <div
+              style={{
+                width: "110px",
+                height: "110px",
+                borderRadius: "50%",
+                border: "2px solid rgba(245,158,11,0.6)",
+                background: "rgba(120,53,15,0.2)",
+                overflow: "hidden",
+                boxShadow: "0 4px 24px rgba(120,53,15,0.4)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/logo.png"
+                alt="Triveni Gau Sewa Trust"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  transform: "scale(1.08) translateX(-0.50px) translateY(-1.25px)",
+                  display: "block",
+                }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/*
-        pt-24 gives enough room below the 80px navbar (h-20) without pushing
-        content too far down. pb-16 ensures stats don't bleed into About.
-      */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24 pb-16">
 
         {/* Main title */}
@@ -183,7 +195,7 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Stats strip — mt-10 keeps it close but not overflowing */}
+        {/* Stats strip */}
         <motion.div
           ref={statsRef}
           initial={{ opacity: 0, y: 40 }}
@@ -194,7 +206,7 @@ export default function Hero() {
           <div className="text-center">
             <div className="text-2xl sm:text-3xl font-bold text-amber-400"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-              {statsVisible ? `${cowCount}+` : "0+"}
+              {statsVisible ? `${cowCount}+` : "1+"}
             </div>
             <div className="text-xs text-amber-200/50 tracking-widest uppercase mt-1"
               style={{ fontFamily: "'Lora', serif" }}>Animals Rescued</div>

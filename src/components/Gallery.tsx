@@ -35,8 +35,9 @@ function MarqueeStrip({ items, direction = 1, speed = 30 }: { items: typeof gall
             {/* Real image */}
             <Image
               src={item.image}
-              alt={item.label}
+              alt={`Gallery image ${item.id}`}
               fill
+              sizes="(max-width: 640px) 192px, 256px"
               className="object-cover"
             />
 
