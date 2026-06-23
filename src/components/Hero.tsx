@@ -125,7 +125,7 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-20 sm:pt-32 pb-6 sm:pb-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-12 sm:pt-32 pb-6 sm:pb-16">
 
         {/* Main title */}
         <motion.h1
