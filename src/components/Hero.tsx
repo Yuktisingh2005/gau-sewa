@@ -44,7 +44,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative sm:min-h-screen flex items-center justify-center overflow-hidden"
       style={{
         background: "radial-gradient(ellipse at 60% 40%, #3d1f00 0%, #1a0f00 40%, #0d0700 100%)",
       }}
@@ -125,7 +125,7 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-12 sm:pt-32 pb-6 sm:pb-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center py-8 sm:py-0 sm:pt-32 sm:pb-16">
 
         {/* Main title */}
         <motion.h1
