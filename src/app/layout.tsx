@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Lora } from "next/font/google";
 import "./globals.css";
 
+
+
+
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
@@ -21,6 +24,9 @@ export const metadata: Metadata = {
   description:
     "Triveni Gau Sewa Trust — A sacred organisation dedicated to rescuing, healing, and caring for cows. Gau Seva is God Seva.",
   keywords: ["Gau Sewa", "Cow Rescue", "Gaushala", "Triveni", "Animal Welfare", "India"],
+  icons: {
+    icon: "/images/favicon.png",
+  },
 };
 
 export default function RootLayout({

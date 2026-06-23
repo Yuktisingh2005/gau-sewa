@@ -15,8 +15,8 @@ export default function Footer() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] opacity-[0.04]"
         style={{ background: "radial-gradient(ellipse, #f59e0b 0%, transparent 70%)" }} />
 
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* Brand column */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-4 mb-6">
@@ -24,7 +24,7 @@ export default function Footer() {
                 <img src="/images/logo.png" alt="Triveni Gau Sewa Trust" className="w-full h-full object-cover scale-110 -translate-x-0.1" />
               </div>
               <div>
-                <div className="text-amber-200 font-bold text-xl"
+                <div className="text-amber-200 font-bold text-lg sm:text-xl"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                   Triveni Gau Sewa Trust
                 </div>
@@ -56,7 +56,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="block group relative overflow-hidden rounded-sm border border-amber-800/40 hover:border-amber-500/60 transition-all duration-300"
-              style={{ height: "160px" }}
+              style={{ height: "140px" }}
             >
               <iframe
                 src="https://maps.google.com/maps?q=28.6927251,77.1265766&z=17&output=embed"
@@ -103,7 +103,7 @@ export default function Footer() {
         <div className="h-[1px] bg-gradient-to-r from-transparent via-amber-900/60 to-transparent mb-8" />
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-amber-200/30 text-xs"
+        <div className="flex flex-col items-center sm:flex-row sm:justify-between gap-3 sm:gap-4 text-amber-200/30 text-xs text-center"
           style={{ fontFamily: "'Lora', serif" }}>
           <p>© {new Date().getFullYear()} Triveni Gau Sewa Trust. All rights reserved.</p>
           <div className="flex items-center gap-2 text-amber-500/40">

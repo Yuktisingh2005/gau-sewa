@@ -90,16 +90,16 @@ export default function Hero() {
             transition={{ duration: 0.25 }}
             style={{
               position: "absolute",
-              top: "16px",
-              left: "25px",
+              top: "12px",
+              left: "16px",
               zIndex: 40,
               pointerEvents: "none",
             }}
           >
             <div
               style={{
-                width: "110px",
-                height: "110px",
+                width: "clamp(44px, 11vw, 110px)",
+                height: "clamp(44px, 11vw, 110px)",
                 borderRadius: "50%",
                 border: "2px solid rgba(245,158,11,0.6)",
                 background: "rgba(120,53,15,0.2)",
@@ -125,14 +125,14 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24 pb-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-24 sm:pt-32 pb-12 sm:pb-16">
 
         {/* Main title */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-5xl sm:text-7xl lg:text-8xl font-bold text-amber-50 leading-[1.1] mb-4"
+          className="text-3xl xs:text-4xl sm:text-6xl lg:text-8xl font-bold text-amber-50 leading-[1.1] mb-4"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           Triveni
@@ -147,7 +147,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.7 }}
-          className="text-xl sm:text-2xl text-amber-200/70 mb-4 tracking-wide"
+          className="text-base sm:text-2xl text-amber-200/70 mb-3 sm:mb-4 tracking-wide"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           Serving Cow, Serving Humanity
@@ -158,7 +158,7 @@ export default function Hero() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1, delay: 0.9 }}
-          className="flex items-center justify-center gap-3 my-6"
+          className="flex items-center justify-center gap-3 my-4 sm:my-6"
         >
           <span className="h-[1px] w-24 bg-gradient-to-r from-transparent to-amber-600" />
           <span className="text-amber-500 text-2xl">✦</span>
@@ -170,7 +170,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.1 }}
-          className="text-base sm:text-lg text-amber-100/50 max-w-2xl mx-auto leading-relaxed mb-8"
+          className="text-sm sm:text-lg text-amber-100/50 max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8"
           style={{ fontFamily: "'Lora', serif" }}
         >
           A sacred mission to rescue, heal, and care for our animals — providing medical aid,
@@ -201,10 +201,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.6 }}
-          className="mt-10 grid grid-cols-3 gap-4 max-w-lg mx-auto"
+          className="mt-6 sm:mt-10 grid grid-cols-3 gap-1 sm:gap-4 max-w-[280px] xs:max-w-xs sm:max-w-lg mx-auto"
         >
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-amber-400"
+            <div className="text-lg sm:text-3xl font-bold text-amber-400"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               {statsVisible ? `${cowCount}+` : "1+"}
             </div>
@@ -213,7 +213,7 @@ export default function Hero() {
           </div>
           <div className="text-center">
             <motion.div
-              className="text-2xl sm:text-3xl font-bold text-amber-400"
+              className="text-lg sm:text-3xl font-bold text-amber-400"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
               animate={statsVisible ? { opacity: [0, 1, 0.6, 1] } : {}}
               transition={{ duration: 1.5, delay: 0.3 }}
@@ -225,7 +225,7 @@ export default function Hero() {
           </div>
           <div className="text-center">
             <motion.div
-              className="text-2xl sm:text-3xl font-bold text-amber-400"
+              className="text-lg sm:text-3xl font-bold text-amber-400"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
               animate={statsVisible ? { scale: [0.5, 1.2, 1], opacity: [0, 1] } : {}}
               transition={{ duration: 1, delay: 0.6 }}

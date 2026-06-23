@@ -29,7 +29,7 @@ export default function WhatsAppButton() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[999] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[999] flex flex-col items-end gap-3">
       {/* Chat bubble popup */}
       <AnimatePresence>
         {showBubble && (
@@ -38,7 +38,7 @@ export default function WhatsAppButton() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 10 }}
             transition={{ type: "spring", stiffness: 300, damping: 22 }}
-            className="relative max-w-[240px] cursor-pointer"
+            className="relative max-w-[200px] sm:max-w-[240px] cursor-pointer"
             onClick={openWhatsApp}
           >
             {/* Bubble card */}
@@ -106,7 +106,7 @@ export default function WhatsAppButton() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.93 }}
         aria-label="Chat on WhatsApp"
-        className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300"
+        className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300"
         style={{
           background: "linear-gradient(135deg, #25d366 0%, #128c4e 100%)",
           boxShadow: "0 4px 24px rgba(37,211,102,0.45), 0 2px 8px rgba(0,0,0,0.3)",

@@ -121,8 +121,8 @@ function TiltGlowFrame({
 
   return (
     <div className="relative max-w-sm mx-auto" style={{ perspective: "1000px" }}>
-      <div className="absolute -inset-4 border border-amber-700/20 rounded-sm" />
-      <div className="absolute -inset-8 border border-amber-700/10 rounded-sm" />
+      <div className="absolute -inset-2 sm:-inset-4 border border-amber-700/20 rounded-sm" />
+      <div className="absolute -inset-4 sm:-inset-8 border border-amber-700/10 rounded-sm" />
 
       <div
         ref={frameRef}
@@ -202,7 +202,7 @@ function ValueCard({ icon, title, desc, image, delay }: {
         onMouseEnter={() => setIsHovering(true)}
         onMouseMove={handleMove}
         onMouseLeave={() => setIsHovering(false)}
-        className="group relative p-6 border border-amber-800/30 bg-amber-900/10 hover:bg-amber-900/20 hover:border-amber-600/40 transition-colors duration-500 rounded-sm overflow-hidden h-full flex flex-col items-center text-center"
+        className="group relative p-4 sm:p-6 border border-amber-800/30 bg-amber-900/10 hover:bg-amber-900/20 hover:border-amber-600/40 transition-colors duration-500 rounded-sm overflow-hidden h-full flex flex-col items-center text-center"
       >
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-amber-600 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
 
@@ -229,20 +229,20 @@ function ValueCard({ icon, title, desc, image, delay }: {
         />
 
         <motion.div
-          className="relative z-10 text-3xl mb-4"
+          className="relative z-10 text-2xl sm:text-3xl mb-3 sm:mb-4"
           whileHover={shouldReduceMotion ? undefined : { scale: 1.18, rotate: 6 }}
           transition={{ type: "spring", stiffness: 320, damping: 12 }}
         >
           {icon}
         </motion.div>
         <h3
-          className="relative z-10 text-amber-300 group-hover:text-amber-100 transition-colors duration-300 font-bold text-lg mb-2"
+          className="relative z-10 text-amber-300 group-hover:text-amber-100 transition-colors duration-300 font-bold text-base sm:text-lg mb-2"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           {title}
         </h3>
         <p
-          className="relative z-10 text-amber-200/50 group-hover:text-amber-100/85 transition-colors duration-300 text-sm leading-relaxed"
+          className="relative z-10 text-amber-200/50 group-hover:text-amber-100/85 transition-colors duration-300 text-xs sm:text-sm leading-relaxed"
           style={{ fontFamily: "'Lora', serif" }}
         >
           {desc}
@@ -263,7 +263,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-28 overflow-hidden"
+      className="relative py-14 sm:py-28 overflow-hidden"
       style={{ background: "linear-gradient(180deg, #0d0700 0%, #1a1000 50%, #0d0700 100%)" }}
     >
       {/* Decorative side lines */}
@@ -292,10 +292,10 @@ export default function About() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section header */}
         <FadeInWhenVisible>
-          <div className="text-center mb-20">
+          <div className="text-center mb-12 sm:mb-20">
             <span
               className="text-amber-500 text-xs tracking-[0.4em] uppercase block mb-4"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
@@ -317,19 +317,19 @@ export default function About() {
         </FadeInWhenVisible>
 
         {/* Two column layout */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-14 sm:mb-20">
           {/* Left: Text */}
           <FadeInWhenVisible direction="left" delay={0.1}>
             <div className="relative">
               <span
                 aria-hidden="true"
-                className="absolute -top-3 -left-1 text-amber-500/25 text-7xl leading-none select-none"
+                className="absolute -top-3 -left-1 text-amber-500/25 text-5xl sm:text-7xl leading-none select-none"
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
                 "
               </span>
               <p
-                className="text-amber-200/70 text-lg leading-relaxed mb-6 pl-6 text-justify"
+                className="text-amber-200/70 text-lg leading-relaxed mb-6 pl-4 sm:pl-6 text-justify"
                 style={{ fontFamily: "'Lora', serif" }}
               >
                 Triveni Gau Sewa Trust was born from a deep-rooted belief in the sanctity of the cow in Indian culture and Hindu tradition. We believe that{" "}
@@ -377,81 +377,97 @@ export default function About() {
           </FadeInWhenVisible>
         </div>
 
-        {/* Founder Section */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
-          {/* Left: Founder portrait image container */}
-          <FadeInWhenVisible direction="left" delay={0.1}>
-            <TiltGlowFrame
-              src="/images/NK.jpeg"
-              alt="Shri N.K. Bhalla"
-              fallbackEmoji="🙏"
-              fallbackTitle="Founder's Portrait"
-              fallbackHint="Place image at /public/images/NK.jpeg"
-              minHeight="340px"
-            />
-          </FadeInWhenVisible>
+        {/* Founder Section
+             Mobile order: 1) text+heading  2) NK portrait  3) quote
+             Desktop (lg): normal 2-col grid — image left, text+quote right          */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 sm:mb-24">
 
-          {/* Right: Founder text */}
-          <FadeInWhenVisible direction="right" delay={0.2}>
-            <div>
-              <span
-                className="text-amber-500 text-xs tracking-[0.4em] uppercase block mb-4"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
-                The Visionary Behind the Trust
-              </span>
-              <h3
-                className="text-3xl sm:text-5xl font-bold text-amber-50 mb-2"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
-                Shri N.K. Bhalla
-              </h3>
-              <div className="flex items-center gap-3 mb-8">
-                <span className="h-[1px] w-12 bg-gradient-to-r from-amber-600 to-transparent" />
-                <span
-                  className="text-amber-500 text-xs tracking-widest uppercase"
-                  style={{ fontFamily: "'Lora', serif" }}
-                >
-                  Founder
-                </span>
-              </div>
-              <p
-                className="text-amber-200/70 text-lg leading-relaxed mb-6"
-                style={{ fontFamily: "'Lora', serif" }}
-              >
-                A lifelong devotee and visionary, Shri Bhalla has dedicated his life to the welfare of animals, bringing together a community bound by love, faith, and service.
-              </p>
-              <p
-                className="text-amber-200/60 text-base leading-relaxed mb-6"
-                style={{ fontFamily: "'Lora', serif" }}
-              >
-                Driven by a deep belief in kindness and service, he established Triveni Gau Sewa Trust as a place of care and compassion, ensuring that injured, abandoned, and helpless animals receive the love, protection, and treatment they deserve.
-              </p>
-              <p
-                className="text-amber-200/60 text-base leading-relaxed mb-10"
-                style={{ fontFamily: "'Lora', serif" }}
-              >
-                Through his dedication and vision, he has brought together volunteers, donors, and veterinarians to work towards a common mission. Today, the Trust stands as a symbol of compassion and animal welfare, touching the lives of thousands of animals and people alike.
-              </p>
-              {/* Decorative quote */}
-              <blockquote
-                className="border-l-2 border-amber-600/60 pl-6 italic text-amber-300/70 text-xl"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
-                "Serving and caring for animals is one of the purest forms of service to God."
-                <span
-                  className="block text-amber-400/40 text-sm mt-2 not-italic tracking-wider"
-                  style={{ fontFamily: "'Lora', serif" }}
-                >
-                  — Shri N.K. Bhalla
-                </span>
-              </blockquote>
+          {/* NK portrait — order-2 on mobile (between text and quote), left column on desktop */}
+          <div className="order-2 lg:order-none">
+            <FadeInWhenVisible direction="left" delay={0.1}>
+              <TiltGlowFrame
+                src="/images/NK.jpeg"
+                alt="Shri N.K. Bhalla"
+                fallbackEmoji="🙏"
+                fallbackTitle="Founder's Portrait"
+                fallbackHint="Place image at /public/images/NK.jpeg"
+                minHeight="340px"
+              />
+            </FadeInWhenVisible>
+          </div>
+
+          {/* Right column on desktop; on mobile splits into order-1 (text) and order-3 (quote) */}
+          <div className="flex flex-col lg:block">
+            {/* Text block — order-1 on mobile (first) */}
+            <div className="order-1 lg:order-none">
+              <FadeInWhenVisible direction="right" delay={0.2}>
+                <div>
+                  <span
+                    className="text-amber-500 text-xs tracking-[0.4em] uppercase block mb-4"
+                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                  >
+                    The Visionary Behind the Trust
+                  </span>
+                  <h3
+                    className="text-3xl sm:text-5xl font-bold text-amber-50 mb-2"
+                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                  >
+                    Shri N.K. Bhalla
+                  </h3>
+                  <div className="flex items-center gap-3 mb-8">
+                    <span className="h-[1px] w-12 bg-gradient-to-r from-amber-600 to-transparent" />
+                    <span
+                      className="text-amber-500 text-xs tracking-widest uppercase"
+                      style={{ fontFamily: "'Lora', serif" }}
+                    >
+                      Founder
+                    </span>
+                  </div>
+                  <p
+                    className="text-amber-200/70 text-lg leading-relaxed mb-6"
+                    style={{ fontFamily: "'Lora', serif" }}
+                  >
+                    A lifelong devotee and visionary, Shri Bhalla has dedicated his life to the welfare of animals, bringing together a community bound by love, faith, and service.
+                  </p>
+                  <p
+                    className="text-amber-200/60 text-base leading-relaxed mb-6"
+                    style={{ fontFamily: "'Lora', serif" }}
+                  >
+                    Driven by a deep belief in kindness and service, he established Triveni Gau Sewa Trust as a place of care and compassion, ensuring that injured, abandoned, and helpless animals receive the love, protection, and treatment they deserve.
+                  </p>
+                  <p
+                    className="text-amber-200/60 text-base leading-relaxed mb-10"
+                    style={{ fontFamily: "'Lora', serif" }}
+                  >
+                    Through his dedication and vision, he has brought together volunteers, donors, and veterinarians to work towards a common mission. Today, the Trust stands as a symbol of compassion and animal welfare, touching the lives of thousands of animals and people alike.
+                  </p>
+                </div>
+              </FadeInWhenVisible>
             </div>
-          </FadeInWhenVisible>
+
+            {/* Decorative quote — order-3 on mobile (after NK portrait), normal flow on desktop */}
+            <div className="order-3 lg:order-none">
+              <FadeInWhenVisible delay={0.3}>
+                <blockquote
+                  className="border-l-2 border-amber-600/60 pl-6 italic text-amber-300/70 text-xl"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                >
+                  "Serving and caring for animals is one of the purest forms of service to God."
+                  <span
+                    className="block text-amber-400/40 text-sm mt-2 not-italic tracking-wider"
+                    style={{ fontFamily: "'Lora', serif" }}
+                  >
+                    — Shri N.K. Bhalla
+                  </span>
+                </blockquote>
+              </FadeInWhenVisible>
+            </div>
+          </div>
+
         </div>
 
         {/* Values grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {values.map((v, i) => (
             <ValueCard key={v.title} icon={v.icon} title={v.title} desc={v.desc} image={v.image} delay={0.1 + i * 0.15} />
           ))}

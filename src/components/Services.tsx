@@ -76,7 +76,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         style={{ background: "radial-gradient(circle at 50% 0%, rgba(245,158,11,0.08) 0%, transparent 70%)" }} />
 
       {/* Image container */}
-      <div className="relative w-full h-48 border-b border-amber-800/20 overflow-hidden">
+      <div className="relative w-full h-44 sm:h-48 border-b border-amber-800/20 overflow-hidden">
         <img
           src={service.image}
           alt={service.title}
@@ -88,8 +88,8 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-amber-200 font-bold text-xl mb-3 group-hover:text-amber-300 transition-colors"
+      <div className="p-4 sm:p-6">
+        <h3 className="text-amber-200 font-bold text-lg sm:text-xl mb-3 group-hover:text-amber-300 transition-colors"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}>
           {service.title}
         </h3>
@@ -123,7 +123,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-28 overflow-hidden"
+      className="relative py-14 sm:py-28 overflow-hidden"
       style={{ background: "linear-gradient(180deg, #0d0700 0%, #150c00 60%, #0d0700 100%)" }}
     >
       {/* Top divider */}
@@ -132,14 +132,14 @@ export default function Services() {
 
   
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 40 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
         >
           <span className="text-amber-500 text-xs tracking-[0.4em] uppercase block mb-4"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}>
@@ -161,7 +161,7 @@ export default function Services() {
         </motion.div>
 
         {/* Services grid — each card animates independently on scroll */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           {services.map((service, i) => (
             <ServiceCard key={service.id} service={service} index={i} />
           ))}

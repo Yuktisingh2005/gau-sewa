@@ -20,17 +20,21 @@ const galleryItems = [
 
 function MarqueeStrip({ items, direction = 1, speed = 30 }: { items: typeof galleryItems; direction?: number; speed?: number }) {
   const doubled = [...items, ...items];
+  // On sm+ cards are w-64 (256px) + gap-4 (16px) = 272px each
+  // Animate exactly one full set width so the loop is seamless
+  const desktopOffset = 272 * items.length;
   return (
     <div className="overflow-hidden relative">
       <motion.div
-        className="flex gap-4 w-max"
-        animate={{ x: direction > 0 ? [0, -50 * items.length * 4] : [-50 * items.length * 4, 0] }}
+        className="flex gap-3 sm:gap-4 w-max"
+        animate={{ x: direction > 0 ? [0, -desktopOffset] : [-desktopOffset, 0] }}
         transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
+        style={{ willChange: "transform" }}
       >
         {doubled.map((item, i) => (
           <div
             key={`${item.id}-${i}`}
-            className="relative flex-shrink-0 w-48 h-32 sm:w-64 sm:h-44 bg-amber-900/20 border border-amber-800/30 rounded-sm overflow-hidden group cursor-pointer hover:border-amber-500/50 transition-all duration-300"
+            className="relative flex-shrink-0 w-32 h-24 xs:w-40 xs:h-28 sm:w-64 sm:h-44 bg-amber-900/20 border border-amber-800/30 rounded-sm overflow-hidden group cursor-pointer hover:border-amber-500/50 transition-all duration-300"
           >
             {/* Real image */}
             <Image
@@ -69,24 +73,24 @@ export default function Gallery() {
     <section
       id="gallery"
       ref={ref}
-      className="relative py-28 overflow-hidden"
+      className="relative py-16 sm:py-28 overflow-hidden"
       style={{ background: "linear-gradient(180deg, #0d0700 0%, #100900 100%)" }}
     >
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-700/40 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <span className="text-amber-500 text-xs tracking-[0.4em] uppercase block mb-4"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             Our Work in Pictures
           </span>
-          <h2 className="text-4xl sm:text-6xl font-bold text-amber-50 mb-6"
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-amber-50 mb-4 sm:mb-6"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             Gallery
           </h2>
@@ -106,7 +110,7 @@ export default function Gallery() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.3 }}
-          className="space-y-4"
+          className="space-y-3 sm:space-y-4"
         >
           <MarqueeStrip items={galleryItems.slice(0, 6)} direction={1} speed={40} />
           <MarqueeStrip items={galleryItems.slice(6)} direction={-1} speed={35} />

@@ -12,7 +12,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -21,20 +20,17 @@ export default function Navbar() {
   }, []);
 
   const handleNavClick = (href: string) => {
-  setMenuOpen(false);
-  const el = document.querySelector(href);
-  if (!el) return;
-  const rect = el.getBoundingClientRect();
-  const offset = 80;
-  window.scrollTo({ top: window.scrollY + rect.top - offset, behavior: "smooth" });
-
-  const path = href === "#hero" ? "/" : `/${href.slice(1)}`;
-  window.history.pushState(null, "", path);
-};
+    const el = document.querySelector(href);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const offset = 80;
+    window.scrollTo({ top: window.scrollY + rect.top - offset, behavior: "smooth" });
+    const path = href === "#hero" ? "/" : `/${href.slice(1)}`;
+    window.history.pushState(null, "", path);
+  };
 
   return (
     <>
-      {/* NAVBAR — scrolled state shows "Triveni Gau Sewa Trust" text on the left */}
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -46,10 +42,71 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
 
-            {/* Left: Trust name — only visible after scroll, leaves space for logo always */}
-            <div style={{ minWidth: "230px" }}>
+          {/* ── MOBILE LAYOUT: single row, logo left + nav links right ── */}
+          <div className="flex md:hidden items-center justify-between h-14">
+
+            {/* Left: Logo only — only when scrolled */}
+            <div className="w-8">
+              <AnimatePresence>
+                {scrolled && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div
+                      style={{
+                        width: "34px",
+                        height: "34px",
+                        borderRadius: "50%",
+                        border: "1.5px solid rgba(245,158,11,0.6)",
+                        background: "rgba(120,53,15,0.2)",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/images/logo.png"
+                        alt="Triveni Gau Sewa Trust"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          transform: "scale(1.08) translateX(-0.3px) translateY(-0.5px)",
+                          display: "block",
+                        }}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Right: Nav links */}
+            <ul className="flex items-center gap-4">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <button
+                    onClick={() => handleNavClick(link.href)}
+                    className="relative text-amber-100/80 hover:text-amber-300 uppercase tracking-wider transition-colors duration-300 group"
+                    style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.72rem" }}
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-0.5 left-0 w-0 h-[1px] bg-amber-400 transition-all duration-300 group-hover:w-full" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── DESKTOP LAYOUT: single row ── */}
+          <div className="hidden md:flex items-center justify-between h-20">
+
+            {/* Left: Logo + Name — only when scrolled */}
+            <div className="flex-1 min-w-0">
               <AnimatePresence>
                 {scrolled && (
                   <motion.div
@@ -57,7 +114,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -16 }}
                     transition={{ duration: 0.35 }}
-                    style={{ paddingLeft: "0px", display: "flex", alignItems: "center", gap: "10px" }}
+                    className="flex items-center gap-2"
                   >
                     <div
                       style={{
@@ -79,14 +136,14 @@ export default function Navbar() {
                           height: "100%",
                           objectFit: "cover",
                           objectPosition: "center",
-                          transform: "scale(1.08) translateX(-0.50px) translateY(-0.5px)",
+                          transform: "scale(1.08) translateX(-0.3px) translateY(-0.5px)",
                           display: "block",
                         }}
                       />
                     </div>
                     <p
-                      className="text-amber-300 font-bold tracking-widest uppercase leading-tight"
-                      style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem" }}
+                      className="text-amber-300 font-bold tracking-wider uppercase leading-tight"
+                      style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.85rem" }}
                     >
                       Triveni Gau Sewa Trust
                     </p>
@@ -95,13 +152,13 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* Right: Desktop nav links */}
-            <ul className="hidden md:flex items-center gap-8">
+            {/* Right: Nav links */}
+            <ul className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <button
                     onClick={() => handleNavClick(link.href)}
-                    className="relative text-amber-100/80 hover:text-amber-300 text-sm tracking-widest uppercase transition-colors duration-300 group"
+                    className="relative text-amber-100/80 hover:text-amber-300 tracking-widest uppercase transition-colors duration-300 group"
                     style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem" }}
                   >
                     {link.label}
@@ -110,58 +167,9 @@ export default function Navbar() {
                 </li>
               ))}
             </ul>
-
-            {/* Mobile Hamburger */}
-            <button
-              className="md:hidden flex flex-col gap-1.5 p-2"
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              <motion.span animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 8 : 0 }} className="block w-6 h-0.5 bg-amber-400 origin-center transition-all" />
-              <motion.span animate={{ opacity: menuOpen ? 0 : 1 }} className="block w-6 h-0.5 bg-amber-400" />
-              <motion.span animate={{ rotate: menuOpen ? -45 : 0, y: menuOpen ? -8 : 0 }} className="block w-6 h-0.5 bg-amber-400 origin-center transition-all" />
-            </button>
           </div>
-        </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-[#1a0f00]/98 border-t border-amber-900/40"
-            >
-              <ul className="py-6 px-6 flex flex-col gap-4">
-                {navLinks.map((link, i) => (
-                  <motion.li
-                    key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.08 }}
-                  >
-                    <button
-                      onClick={() => handleNavClick(link.href)}
-                      className="text-amber-200 text-lg tracking-widest uppercase w-full text-left py-2 border-b border-amber-900/30 hover:text-amber-400 transition-colors"
-                      style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                    >
-                      {link.label}
-                    </button>
-                  </motion.li>
-                ))}
-                <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-                  <button
-                    onClick={() => handleNavClick("#contact")}
-                    className="mt-2 w-full py-3 border border-amber-500 text-amber-300 text-sm tracking-widest uppercase hover:bg-amber-500 hover:text-[#1a0f00] transition-all"
-                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                  >
-                    Donate
-                  </button>
-                </motion.li>
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        </div>
       </motion.nav>
     </>
   );
