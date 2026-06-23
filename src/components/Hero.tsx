@@ -125,14 +125,14 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center py-8 sm:py-0 sm:pt-32 sm:pb-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-12 pb-4 sm:py-0 sm:pt-32 sm:pb-16">
 
         {/* Main title */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-3xl xs:text-4xl sm:text-6xl lg:text-8xl font-bold text-amber-50 leading-[1.1] mb-4"
+          className="text-5xl xs:text-5xl sm:text-6xl lg:text-8xl font-bold text-amber-50 leading-[1.1] mb-4"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           Triveni
