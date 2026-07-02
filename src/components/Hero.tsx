@@ -177,12 +177,12 @@ export default function Hero() {
           transport, and rehabilitation with devotion and compassion.
         </motion.p>
 
-        {/* Single CTA Button */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
-          className="flex justify-center"
+          className="flex flex-wrap items-center justify-center gap-4 sm:gap-5"
         >
           <a
             href="#about"
@@ -193,7 +193,42 @@ export default function Hero() {
             <span className="relative z-10">Discover Our Mission</span>
             <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
           </a>
+
+          {/* Donate Button — refined gold outline, fills on hover to echo primary CTA */}
+          <a
+            href="#donate"
+            onClick={(e) => { e.preventDefault(); document.querySelector("#donate")?.scrollIntoView({ behavior: "smooth" }); }}
+            className="donate-btn group relative px-8 py-4 font-bold text-sm tracking-widest uppercase rounded-sm overflow-hidden transition-all duration-300"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            <span className="donate-btn-fill absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
+            <span className="relative z-10 donate-btn-text transition-colors duration-300">
+              Donate Now
+            </span>
+          </a>
         </motion.div>
+
+        <style jsx>{`
+          .donate-btn {
+            color: #fbbf24;
+            background: rgba(120, 53, 15, 0.12);
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            box-shadow: 0 0 18px rgba(251, 191, 36, 0.12);
+          }
+          .donate-btn:hover {
+            border-color: rgba(251, 191, 36, 0.85);
+            box-shadow: 0 0 28px rgba(251, 191, 36, 0.3), 0 0 50px rgba(217, 119, 6, 0.15);
+          }
+          .donate-btn-fill {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #d97706 100%);
+          }
+          .donate-btn-text {
+            position: relative;
+          }
+          .donate-btn:hover .donate-btn-text {
+            color: #1a0f00;
+          }
+        `}</style>
 
         {/* Stats strip */}
         <motion.div
