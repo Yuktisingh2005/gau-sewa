@@ -20,14 +20,14 @@ const galleryItems = [
 
 function MarqueeStrip({ items, direction = 1, speed = 30 }: { items: typeof galleryItems; direction?: number; speed?: number }) {
   const doubled = [...items, ...items];
-  // On sm+ cards are w-64 (256px) + gap-4 (16px) = 272px each
-  // Animate exactly one full set width so the loop is seamless
-  const desktopOffset = 272 * items.length;
+  // The strip is always exactly 2x the width of one set of items (since we
+  // doubled them), so animating by -50% loops seamlessly at ANY screen size,
+  // instead of relying on a hardcoded desktop pixel width.
   return (
     <div className="overflow-hidden relative">
       <motion.div
         className="flex gap-3 sm:gap-4 w-max"
-        animate={{ x: direction > 0 ? [0, -desktopOffset] : [-desktopOffset, 0] }}
+        animate={{ x: direction > 0 ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
         style={{ willChange: "transform" }}
       >
@@ -101,7 +101,7 @@ export default function Gallery() {
           </div>
           <p className="text-amber-200/50 max-w-xl mx-auto text-sm"
             style={{ fontFamily: "'Lora', serif" }}>
-            Moments of seva, compassion, and healing — a visual journey through our sacred work.
+            Moments of sewa, compassion, and healing — a visual journey through our sacred work.
           </p>
         </motion.div>
 

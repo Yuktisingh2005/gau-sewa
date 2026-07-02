@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"Triveni Gau Sewa Trust" <${process.env.EMAIL_USER}>`,
-      to: "yuktisingh2005@gmail.com",
+      to: "trivenigausewa2026@gmail.com",
       subject: `New Inquiry from ${name} — Triveni Gau Sewa Trust`,
       html: `
         <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; background: #1a0f00; color: #fbbf24; padding: 32px; border-radius: 8px; border: 1px solid #92400e;">

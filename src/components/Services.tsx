@@ -12,15 +12,19 @@ const services = [
       "We help rescue injured and sick animals and arrange safe transportation to hospitals and treatment centers, ensuring they receive timely medical care.",
     features: ["Emergency assistance", "Transport to hospitals", "Animal welfare support"],
   },
-  {
-    id: 2,
-    icon: "🏥",
-    image: "/images/service2.jpeg",
-    title: "Veterinary Medical Care",
-    description:
-      "Our onsite veterinary team provides comprehensive medical treatment including surgery, wound care, medication, and long-term recovery support for all rescued animals.",
-    features: ["In-house veterinarians", "Surgical facilities", "Post-op care"],
-  },
+ {
+  id: 2,
+  icon: "🏥",
+  image: "/images/service2.png",
+  title: "Medical Support",
+  description:
+    "We support the treatment of injured and sick animals by providing specialised equipment and working with hospitals and shelters to ensure they receive timely care.",
+  features: [
+    "Support equipment",
+    "Treatment assistance",
+    "Recovery support",
+  ],
+},
   {
     id: 3,
     icon: "⚙️",
@@ -39,15 +43,19 @@ const services = [
       "Rescued animals receive nutritious meals tailored to their health condition, with green fodder, mineral supplements, and medicinal herbs sourced locally.",
     features: ["Daily nutritious feed", "Herbal medicine", "Mineral supplements"],
   },
-  {
-    id: 5,
-    icon: "🏡",
-    image: "/images/service5.jpeg",
-    title: "Gaushala & Shelter",
-    description:
-      "Our Gaushala provides a safe, loving home for animals that cannot return to the wild — a sacred space where they live with dignity, comfort, and care for life.",
-    features: ["Permanent shelter", "Clean environment", "Loving caretakers"],
-  },
+{
+  id: 5,
+  icon: "🤝",
+  image: "/images/service5.png",
+  title: "Community Support",
+  description:
+    "We work closely with volunteers, donors, and local communities to rescue animals in need and ensure they receive timely help and proper care.",
+  features: [
+    "Volunteer network",
+    "Community involvement",
+    "Compassionate service",
+  ],
+},
   {
     id: 6,
     icon: "🤝",

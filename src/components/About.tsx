@@ -11,7 +11,7 @@ const values = [
   },
   {
     icon: "🙏",
-    title: "God Seva",
+    title: "God Sewa",
     desc: "We believe that serving and protecting animals with compassion is a meaningful way to serve God and humanity.",
     image: "/images/box2.png",
   },
@@ -24,7 +24,7 @@ const values = [
   {
     icon: "🌿",
     title: "Healing",
-    desc: "We provide medical treatment, recovery support, and dedicated care for injured and sick animals.",
+    desc: "We rescue animals in need, transport them to hospitals and shelters, and provide essential support to help them recover.",
     image: "/images/box4.png",
   },
 ];
@@ -333,13 +333,13 @@ export default function About() {
                 style={{ fontFamily: "'Lora', serif" }}
               >
                 Triveni Gau Sewa Trust was born from a deep-rooted belief in the sanctity of the cow in Indian culture and Hindu tradition. We believe that{" "}
-                <em className="text-amber-300">Gau Seva is God Seva</em> — serving the cow is indeed serving the divine.
+                <em className="text-amber-300">Gau Sewa is God Sewa</em> — serving the cow is indeed serving the divine.
               </p>
               <p
                 className="text-amber-200/60 text-base leading-relaxed mb-6 text-justify"
                 style={{ fontFamily: "'Lora', serif" }}
               >
-                Our organisation actively rescues injured, ill, and abandoned cows and other animals across the region. We provide emergency transport to hospitals, deploy specialised healing machines, and offer around-the-clock veterinary care to ensure every animal gets the treatment it deserves.
+                Our organisation actively rescues injured, ill, and abandoned cows and other animals across the region. We provide emergency rescue and transportation services, ensuring that animals in distress are safely taken to hospitals, shelters, and rehabilitation centres where they can receive the medical treatment and care they need. Through timely intervention and compassionate action, we strive to give every rescued animal a chance to recover with dignity.
               </p>
               <p
                 className="text-amber-200/60 text-base leading-relaxed text-justify"
@@ -424,22 +424,22 @@ export default function About() {
                     </span>
                   </div>
                   <p
-                    className="text-amber-200/70 text-lg leading-relaxed mb-6"
+                    className="text-amber-200/70 text-lg leading-relaxed mb-6 text-justify"
                     style={{ fontFamily: "'Lora', serif" }}
                   >
-                    A lifelong devotee and visionary, Shri Bhalla has dedicated his life to the welfare of animals, bringing together a community bound by love, faith, and service.
+                    A lifelong devotee and visionary, Shri N.K. Bhalla has dedicated his life to the welfare of animals, bringing together a community bound by love, faith, and service.
                   </p>
                   <p
-                    className="text-amber-200/60 text-base leading-relaxed mb-6"
+                    className="text-amber-200/60 text-base leading-relaxed mb-6 text-justify"
                     style={{ fontFamily: "'Lora', serif" }}
                   >
                     Driven by a deep belief in kindness and service, he established Triveni Gau Sewa Trust as a place of care and compassion, ensuring that injured, abandoned, and helpless animals receive the love, protection, and treatment they deserve.
                   </p>
                   <p
-                    className="text-amber-200/60 text-base leading-relaxed mb-10"
+                    className="text-amber-200/60 text-base leading-relaxed mb-10 text-justify"
                     style={{ fontFamily: "'Lora', serif" }}
                   >
-                    Through his dedication and vision, he has brought together volunteers, donors, and veterinarians to work towards a common mission. Today, the Trust stands as a symbol of compassion and animal welfare, touching the lives of thousands of animals and people alike.
+                    Through his dedication and vision, he has brought together volunteers, donors, and veterinarians to work towards a common mission. Today, the Trust continues to help thousands of animals by rescuing them and ensuring they receive the care they need.
                   </p>
                 </div>
               </FadeInWhenVisible>

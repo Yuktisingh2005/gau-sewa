@@ -183,7 +183,7 @@ export default function Contact() {
               {[
                 { icon: "📍", label: "Address", value: "49, ANAND VIHAR, PITAM PURA, DELHI- 110034" },
                 { icon: "📞", label: "Phone", value: "+91 9810292527" },
-                { icon: "✉️", label: "Email", value: "trivenigausewatrust2026@gmail.com" },
+                { icon: "✉️", label: "Email", value: "trivenigausewa2026@gmail.com" },
               ].map((c) => (
                 <div key={c.label} className="flex items-start gap-4">
                   <span className="text-2xl flex-shrink-0 mt-0.5">{c.icon}</span>

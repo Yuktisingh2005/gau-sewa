@@ -20,8 +20,8 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-30 h-30 rounded-full border-2 border-amber-600/50 bg-amber-900/20 flex items-center justify-center overflow-hidden">
-                <img src="/images/logo.png" alt="Triveni Gau Sewa Trust" className="w-full h-full object-cover scale-110 -translate-x-0.1" />
+              <div className="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 aspect-square flex-shrink-0 rounded-full border-2 border-amber-600/50 bg-amber-900/20 flex items-center justify-center overflow-hidden">
+                <img src="/images/logo.png" alt="Triveni Gau Sewa Trust" className="w-full h-full object-cover scale-110" />
               </div>
               <div>
                 <div className="text-amber-200 font-bold text-lg sm:text-xl"
@@ -37,7 +37,7 @@ export default function Footer() {
             <p className="text-amber-200/40 text-sm leading-relaxed mb-6 max-w-sm"
               style={{ fontFamily: "'Lora', serif" }}>
               A sacred trust dedicated to the rescue, healing, and lifelong care of cows and other animals.
-              Guided by the principle that <em>Gau Seva is God Seva</em>, we serve with devotion.
+              Guided by the principle that <em>Gau Sewa is God Sewa</em>, we serve with devotion.
             </p>
             <blockquote className="italic text-amber-400/50 text-sm border-l-2 border-amber-700/50 pl-4"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}>
@@ -93,7 +93,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-base">✉️</span>
-                <span>trivenigausewatrust2026@gmail.com</span>
+                <span>trivenigausewa2026@gmail.com</span>
               </li>
             </ul>
           </div>
